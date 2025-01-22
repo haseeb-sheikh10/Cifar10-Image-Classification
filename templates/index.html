@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CIFAR-10 Image Classifier</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <main>
+      <div class="container">
+        <h1>CIFAR-10 Image Classifier</h1>
+        <form id="uploadForm">
+          <div class="form-group">
+            <input
+              type="file"
+              id="fileInput"
+              name="file"
+              accept="image/jpg, image/jpeg, image/png, image/webp"
+            />
+            <label for="fileInput" class="btn btn-secondary"
+              >Choose Image</label
+            >
+            <img id="preview" class="img-thumbnail" />
+          </div>
+          <button type="submit" class="btn btn-primary">Predict</button>
+        </form>
+        <div id="result"></div>
+      </div>
+      <div class="left-sidebar">
+        <h5>
+          The CIFAR-10 dataset consists of 60000 32x32 colour images in 10
+          classes, with 6000 images per class. There are 50000 training images
+          and 10000 test images.
+        </h5>
+        <img
+          src="/static/images/classes.png"
+          alt="CIFAR-10"
+          class="dataset-img"
+        />
+      </div>
+      <div class="right-sidebar">
+        <button id="reportButton" class="btn btn-primary">Show Report</button>
+        <div id="report"></div>
+      </div>
+    </main>
+    <div class="footer">
+      <p>
+        Developed by
+        <strong>HASEEB 🚀 | AHSAN 😁 | Khawaja Hassan 👲 | Muaz Khan 🗿</strong>
+      </p>
+    </div>
+    <script src="/static/script.js"></script>
+  </body>
+</html>
