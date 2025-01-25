@@ -68,3 +68,24 @@ document.getElementById("reportButton").addEventListener("click", async () => {
       `;
   }
 });
+
+document.getElementById("summaryButton").addEventListener("click", async () => {
+  const summaryDiv = document.getElementById("summary");
+
+  try {
+    const response = await fetch("/model-summary", { method: "GET" });
+    const data = await response.json();
+
+    if (data.summary) {
+      // Render the model summary inside a <pre> tag for formatted display
+      summaryDiv.innerHTML = `<pre>${data.summary}</pre>`;
+    } else {
+      summaryDiv.textContent = "Unable to fetch model summary.";
+    }
+  } catch (error) {
+    console.error("Error:", error);
+    summaryDiv.innerHTML = `<p>An error occurred while fetching the summary.</p>
+      <br/> <pre>${error}</pre>
+      `;
+  }
+});

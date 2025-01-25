@@ -8,8 +8,11 @@ from tensorflow import expand_dims
 from sklearn.metrics import classification_report
 
 import numpy as np
-from io import BytesIO
+from io import BytesIO, StringIO
 import os
+
+from contextlib import redirect_stdout
+
 
 app = Flask(__name__)
 
@@ -25,7 +28,8 @@ y_test = to_categorical(y_test, 10)
 
 model = load_model("cifar10_cnn.h5")
 
-pred = model.predict(X_test)
+# pred = model.predict(X_test)
+
 
 @app.route("/")
 def index():
@@ -48,7 +52,7 @@ def predict():
     prediction = model.predict(img_array)
     predicted_class = classes[np.argmax(prediction)]
     accuracy = np.max(prediction) * 100
-    if accuracy > 80:
+    if accuracy > 20:
         return jsonify({
             "class": f"It is a {predicted_class}.",
             "accuracy": f"{accuracy:.2f}%"
@@ -62,6 +66,7 @@ def predict():
 
 @app.route("/evaluate-model", methods=["GET"])
 def evaluate_model():
+    pred = model.predict(X_test)
     y_pred = np.argmax(pred, axis=1)
     y_true = np.argmax(y_test, axis=1)
 
@@ -69,6 +74,17 @@ def evaluate_model():
     report = classification_report(y_true, y_pred)
 
     return jsonify({"report": report })
+
+@app.route("/model-summary", methods=["GET"])
+def model_summary():
+    # Capture the model summary as a string
+    summary_stream = StringIO()
+    with redirect_stdout(summary_stream):
+        model.summary()
+    summary_string = summary_stream.getvalue()
+    summary_stream.close()
+    
+    return jsonify({"summary": summary_string})
 
 if __name__ == "__main__":
     app.run(debug=True)

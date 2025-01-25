@@ -9,15 +9,16 @@ body {
   text-align: center;
   background-color: #f4f4f9;
   min-height: 100vh;
+  padding: 0 20px;
 }
 
 main {
-  margin: auto;
-  margin-top: 50px;
+  margin: 50px auto;
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
-  grid-template-rows: 1fr 1fr;
   gap: 20px;
+  grid-auto-flow: row;
+  grid-auto-rows: min-content;
 }
 
 .container {
@@ -62,6 +63,9 @@ main {
   #fileInput {
     display: none;
   }
+  #summary {
+    padding: 10px 0;
+  }
 }
 
 .left-sidebar {
@@ -79,7 +83,6 @@ main {
 }
 
 .right-sidebar {
-  grid-column-start: 2;
   padding: 20px;
   border: 1px solid #ddd;
   border-radius: 10px;
