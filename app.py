@@ -87,4 +87,4 @@ def model_summary():
     return jsonify({"summary": summary_string})
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(host='0.0.0.0', debug=True)
